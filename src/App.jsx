@@ -7,9 +7,9 @@ function App() {
   const nameRef = useRef();
   const priceRef = useRef();
   const descRef = useRef();
-  const [name,setName] = useState('')
-  const [price,setPrice] = useState('')
-  const [desc,setDesc] = useState('')
+  // const [name,setName] = useState('')
+  // const [price,setPrice] = useState('')
+  // const [desc,setDesc] = useState('')
 
   useEffect(() => {
     setLoader(true)
@@ -49,6 +49,10 @@ function App() {
   function handleSubmit(e) {
     e.preventDefault();
     
+    // console.log(nameRef.current.value);
+    // console.log(priceRef.current.value);
+    // console.log(descRef.current.value);
+
     useEffect(() => {
       fetch('https://auth-rg69.onrender.com/api/products', {
         method:"POST"
