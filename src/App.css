@@ -1,0 +1,75 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+td, th{
+  border: 2px solid rgb(132, 64, 64);
+  padding: 10px;
+}
+
+table{
+  width:60%;
+  background-color: rgb(112, 201, 201);
+  text-align: center;
+  margin: 100px auto;
+  border: 2px solid rgb(132, 64, 64);
+  border-collapse: collapse;
+}
+
+form{
+  margin-top:30px;
+}
+
+form input {
+  width: 30%;
+  margin-bottom:20px;
+  padding: 10px 10px;
+  margin-left: 550px;
+  transition: all 0.5s;
+}
+
+form input:hover{
+  border-bottom: 2px solid aqua;
+  border-top: 2px solid red;
+}
+
+form textarea{
+  width: 30%;
+  margin-left: 550px;
+  padding: 10px 10px;
+  transition: all 0.5s;
+}
+
+form textarea:hover{
+  border-bottom: 2px solid aqua;
+  border-top: 2px solid red;
+}
+
+.loader{
+  margin-left: 700px;
+  margin-top: 50px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+table button{
+  padding: 5px 10px;
+  border: none;
+  background-color: rgb(21, 118, 237);
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+}
+table td{
+  background-color: rgb(231, 218, 198);
+  color:black;
+  font-size: 16px;
+  font-weight: 500;
+}
+table th{
+  font-weight:900;
+  font-size: 18px;
+}
+
