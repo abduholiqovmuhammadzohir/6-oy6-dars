@@ -55,7 +55,7 @@ function App() {
       })
       .then(res => res.json())
       .then(data => {
-        setName(data)
+        console.log(data);
       })
       .catch(err => {
         console.log(err);
@@ -87,9 +87,9 @@ function App() {
     <>
 
       <form onSubmit={handleSubmit}>
-        <input onChange={onChangeName} maxLength={20} ref={nameRef} type="text" placeholder='Name' /><br />
-        <input onChange={onChangePrice} maxLength={12} ref={priceRef} type="number" placeholder='Price' /><br />
-        <textarea onChange={onChangeDesc} ref={descRef} maxLength={25} cols="30" rows="10" placeholder='Description'></textarea>
+        <input maxLength={20} ref={nameRef} type="text" placeholder='Name' /><br />
+        <input  maxLength={12} ref={priceRef} type="number" placeholder='Price' /><br />
+        <textarea ref={descRef} maxLength={25} cols="30" rows="10" placeholder='Description'></textarea>
         <button>Saqlash</button>
       </form>
 
