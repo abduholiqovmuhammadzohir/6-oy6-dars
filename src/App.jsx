@@ -6,10 +6,7 @@ function App() {
   const [loader, setLoader] = useState(false)
   const nameRef = useRef();
   const priceRef = useRef();
-  const descRef = useRef();
-  // const [name,setName] = useState('')
-  // const [price,setPrice] = useState('')
-  // const [desc,setDesc] = useState('')
+  const descRef = useRef(); 1
 
   useEffect(() => {
     setLoader(true)
@@ -49,14 +46,21 @@ function App() {
   function handleSubmit(e) {
     e.preventDefault();
     
-    // console.log(nameRef.current.value);
-    // console.log(priceRef.current.value);
-    // console.log(descRef.current.value);
+    const info = {
+      name: "nameRef",
+      price: "priceRef",
+      desc: "descRef"
+    }
 
-    useEffect(() => {
+   
       fetch('https://auth-rg69.onrender.com/api/products', {
-        method:"POST"
+        method:"POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(info)
       })
+
       .then(res => res.json())
       .then(data => {
         console.log(data);
@@ -64,7 +68,6 @@ function App() {
       .catch(err => {
         console.log(err);
       })
-    },[])
 
     if (!nameRef.current.value) {
       alert("Namega ma'lumot kiritilmadi");
@@ -110,7 +113,7 @@ function App() {
           <th>Amallar</th>
         </tr>
         {
-          data.map((phone, index) => {
+          data.map((phone,index) => {
             return (
               <tr key={index}>
                 <td>{index + 1}</td>
