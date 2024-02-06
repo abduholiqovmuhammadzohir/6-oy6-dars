@@ -5,8 +5,10 @@ function App() {
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(false)
   const nameRef = useRef();
+  const descRef = useRef();
   const priceRef = useRef();
-  const descRef = useRef(); 1
+  // const idRef = useRef();
+  // const statusRef = useRef();
 
   useEffect(() => {
     setLoader(true)
@@ -45,21 +47,23 @@ function App() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    
+
     const info = {
       name: "nameRef",
       price: "priceRef",
-      desc: "descRef"
+      desc: "descRef",
+      // id: "idRef",
+      // status: "statusRef",
     }
 
-   
-      fetch('https://auth-rg69.onrender.com/api/products', {
-        method:"POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body:JSON.stringify(info)
-      })
+
+    fetch('https://auth-rg69.onrender.com/api/products', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(info)
+    })
 
       .then(res => res.json())
       .then(data => {
@@ -95,7 +99,7 @@ function App() {
 
       <form onSubmit={handleSubmit}>
         <input maxLength={20} ref={nameRef} type="text" placeholder='Name' /><br />
-        <input  maxLength={12} ref={priceRef} type="number" placeholder='Price' /><br />
+        <input maxLength={12} ref={priceRef} type="number" placeholder='Price' /><br />
         <textarea ref={descRef} maxLength={25} cols="30" rows="10" placeholder='Description'></textarea>
         <button>Saqlash</button>
       </form>
@@ -113,7 +117,7 @@ function App() {
           <th>Amallar</th>
         </tr>
         {
-          data.map((phone,index) => {
+          data.length && data.map((phone, index) => {
             return (
               <tr key={index}>
                 <td>{index + 1}</td>
