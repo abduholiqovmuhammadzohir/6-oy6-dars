@@ -1,136 +1,42 @@
-import { useEffect, useState, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
+import Form from './components/Form'
+import Products from './components/Products'
+
 
 function App() {
-  const [data, setData] = useState([]);
-  const [loader, setLoader] = useState(false)
-  const nameRef = useRef();
-  const descRef = useRef();
-  const priceRef = useRef();
-  // const idRef = useRef();
-  // const statusRef = useRef();
+
+  const [products, setProducts] = useState([]);
+  const [isLoding, setIsLoding] = useState(false)
 
   useEffect(() => {
-    setLoader(true)
+    setIsLoding(true)
     fetch('https://auth-rg69.onrender.com/api/products/all')
       .then(res => res.json())
       .then(data => {
-        setData(data);
-        setLoader(false);
+        setProducts(data)
       })
       .catch(err => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoding(false)
       })
   }, [])
 
-  function handleButton(id) {
-    let isDelete = confirm("Rostan ham o'chirmoqchimisiz?")
-    if (isDelete) {
-      fetch(`https://auth-rg69.onrender.com/api/products/${id}`, {
-        method: "DELETE"
-      })
-        .then(res => res.json())
-        .then(dataRes => {
-          if (dataRes.message == "Mahsulot muvaffaqiyatli o'chirildi") {
-            let copy = JSON.parse(JSON.stringify(data))
-            copy = copy.filter(el => {
-              return el.id != id;
-            })
-            setData(copy)
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        })
-    }
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    const info = {
-      name: "nameRef",
-      price: "priceRef",
-      desc: "descRef",
-      // id: "idRef",
-      // status: "statusRef",
-    }
-
-
-    fetch('https://auth-rg69.onrender.com/api/products', {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(info)
-    })
-
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-
-    if (!nameRef.current.value) {
-      alert("Namega ma'lumot kiritilmadi");
-      nameRef.current.focus();
-    }
-
-    if (!priceRef.current.value) {
-      alert("Pricega ma'lumot kiritilmadi");
-      nameRef.current.focus();
-    }
-
-    if (priceRef.current.value <= 100) {
-      alert("Narhdi juda arzon kiritmoqdasiz");
-      nameRef.current.focus();
-    }
-
-    if (!descRef.current.value) {
-      alert("Izoh yozmadiningiz");
-      nameRef.current.focus();
-    }
-
-  }
   return (
-    <>
-
-      <form onSubmit={handleSubmit}>
-        <input maxLength={20} ref={nameRef} type="text" placeholder='Name' /><br />
-        <input maxLength={12} ref={priceRef} type="number" placeholder='Price' /><br />
-        <textarea ref={descRef} maxLength={25} cols="30" rows="10" placeholder='Description'></textarea>
-        <button>Saqlash</button>
-      </form>
-
+    <div className='container'>
       {
-        loader && <p className='loader'>Loading...</p>
+        isLoding ? (
+          <p style={{textAlign:'center' , fontSize:"26px"}}>Loading...</p>
+        ) : (
+          <>
+            <Form addValue = {setProducts} products = {products}></Form>
+            <Products data={products} setProducts = {setProducts}></Products>
+          </>
+        )
       }
-
-      <table>
-        <tr>
-          <th>No</th>
-          <th>Nomi</th>
-          <th>Narxi</th>
-          <th>Izoh</th>
-          <th>Amallar</th>
-        </tr>
-        {
-          data.length && data.map((phone, index) => {
-            return (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{phone.name}</td>
-                <td>{phone.price}</td>
-                <td>{phone.description}</td>
-                <td><button onClick={() => { handleButton(phone.id) }}>delete</button></td>
-              </tr>
-            )
-          })
-        }
-      </table>
-    </>
+    </div>
   )
 }
 
